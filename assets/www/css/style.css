@@ -1,0 +1,49 @@
+/*------------------------------------*\
+    BolMeg
+\*------------------------------------*/
+
+/*------------------------------------*\
+	Proyect		: Clasificacion de empresas
+	Description	: Design based on CSS3
+	Filename   	: style.css
+	Version    	: 1.0
+	Date       	: Mar 26, 2013 - 0160
+\*------------------------------------*/
+
+#basic-jqm-gallery-page div[data-role=content] .ui-grid-b img {
+	width: 100%;
+	border-left: solid white 4px;
+	border-right: solid white 4px;
+	}
+
+/* make the gid 100% wide */
+#basic-jqm-gallery-page div[data-role=content] .ui-grid-b {
+	width: 100%;
+	}
+	
+/* Content Home */
+.content_home{
+	text-align:center;
+}
+.content_page{}
+.content_page img.align_right{ 
+	float:right; 
+	margin-left: 10px;
+	margin-bottom:10px;
+}	
+.content_contact{}
+
+/* Listado de productos */
+div[data-role="content"] .note {
+	color:#497BAE;
+	font-weight:700;
+	}
+div[data-role="content"] .ui-li .ui-btn-inner a.ui-link-inherit {
+	padding-top:2px;
+	padding-bottom:2px;
+	padding-left:92px;
+	}
+div[data-role="content"] .ui-li-heading {
+	font-size:14px;
+	margin-top:6px;
+	}
