@@ -33,42 +33,42 @@ var db;
 var data2Save = new Array();
 document.addEventListener( "deviceready", function() {
 	document.addEventListener( "online", function() {
-		//--$.mobile.changePage("#page_contact", "slideup");
+        //--$.mobile.changePage("#page_contact", "slideup");
 	}, false );
-	
+
 	document.addEventListener( "offline", function() {
-		//--$.mobile.changePage("#page_contact_off", "slideup");
+        //--$.mobile.changePage("#page_contact_off", "slideup");
 	}, false );
 	
-	checkUpdates();
+    checkUpdates();
 } );
             
 function checkUpdates() {
-	$.ajax({
+    $.ajax({
 		url:'http://www.codigobase.com/all-brands/getData.php',
-		dataType: 'json',
+        dataType: 'json',
 		success: function( data ) {
-			//--navigator.notification.beep(2);
-			//--navigator.notification.alert("hay nuevos datos");
-			
-			var empObject = eval('(' + JSON.stringify(data) + ')');
-			var empObjectLen = empObject.length;
-			
-			console.log("longitud " + empObjectLen);
-			//--console.log("valor: " + empObject);
-			
+            //--navigator.notification.beep(2);
+            //--navigator.notification.alert("hay nuevos datos");
+
+            var empObject = eval('(' + JSON.stringify(data) + ')');
+            var empObjectLen = empObject.length;
+
+            console.log("longitud " + empObjectLen);
+            //--console.log("valor: " + empObject);
+
 			for( var i = 0; i < empObjectLen; i++ ) {
-				data2Save[i] = empObject[i];
-			}
-			
+                data2Save[i] = empObject[i];
+            }
+
 			db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );		
 			db.transaction( populateDB, errorCB, successCB );
 			db.transaction( queryDB, errorCB );
-		},
+        },
 		error: function( data ) {
-			navigator.notification.alert("hubo un error");
-		}
-	});
+            navigator.notification.alert("hubo un error");
+        }
+    });
 }
 
 function errorCB( err ) {
@@ -116,8 +116,31 @@ function populateDB( tx ) {
 	
 	//--tx.executeSql( "INSERT INTO products(title, description, price, brand, category, status) VALUES('juan', 'Desarrollador de softwaare','200.54','hp','laptop','refurbished')" );
 	//tx.executeSql( "INSERT INTO products(title, description, price) VALUES('juan', 'Desarrollador de softwaare','100')" );
-	//--tx.executeSql( "INSERT INTO products(title, description, price, brand, category, status) VALUES('gaston', 'Diseño de software','247.54','Acer','tablet','new')" );
-	//tx.executeSql( "INSERT INTO products(title, description, price) VALUES('gaston', 'Diseño de software','450')" );
+	//--tx.executeSql( "INSERT INTO products(title, description, price, brand, category, status) VALUES('gaston', 'Diseï¿½o de software','247.54','Acer','tablet','new')" );
+	//tx.executeSql( "INSERT INTO products(title, description, price) VALUES('gaston', 'Diseï¿½o de software','450')" );
+
+    
+        tx.executeSql("DROP TABLE IF EXISTS categories");
+        var createTable = "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,image TEXT NOT NULL)";
+        tx.executeSql( createTable );
+        
+        var data2SaveCat = new Array;
+        data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
+        data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
+        data2SaveCat.push({title:"Hp",description:"",image:"logo_hp.png"});
+        data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
+        data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
+        data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
+        data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
+        for( var i = 0; i < data2SaveCat.length; i++ ) {
+		var cTit = data2SaveCat[i].title;
+                var cDes ="1";
+		var cImg = data2SaveCat[i].image;
+                //console.log("--->" + i);
+		query = "INSERT INTO categories(title, description, image) VALUES('" + cTit+ "', '" + cDes + "','images/" + cImg + "')";
+		//console.log("-->"+ query );
+		tx.executeSql( query );		
+	}
 }
 
 $(document).on("mobileinit", function() {
