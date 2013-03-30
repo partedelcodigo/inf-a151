@@ -10,6 +10,9 @@
 
 <script src="js/jquery.mobile/jquery-1.7.1.min.js"></script>
 <script src="js/jquery.mobile/jquery.mobile-1.1.1.min.js"></script>
+<script type="text/javascript">
+	var useUpdateFunctions = false;
+</script>
 <script src="js/main-functions.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
@@ -40,31 +43,35 @@
             Edificio Herman Piso 13 Of. 1301<br>
             591 - 2 - 2150154<br>
             La Paz - Bolivia</p>
-			<form action="#" method="post">
+			<form id="form_contact"  method="POST">
+                    <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <label for="textinput1">
-                                Nombre:
+                            <label for="txtCName">
+                                Nombre
                             </label>
-                            <input id="textinput1" placeholder="Nombre Completo" value="" type="text" />
+                            <input name="name" id="txtCName" placeholder="Juan Perez" value="" type="text" />
                         </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <label for="textinput2">
-                                E-mail:
+                            <label for="txtCMail">
+                                Correo
                             </label>
-                            <input id="textinput2" placeholder="su-email@ejemplo.com" value="" type="text" />
+                            <input name="usermail" id="txtCMail" placeholder="juanperez@gmail.com" value="" type="email" />
                         </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <label for="textarea1">
-                                Mensaje:
+                            <label for="txtCMsg" >
+                                Comentario
                             </label>
-                            <textarea id="textarea1" placeholder="">
+                            <textarea name="message" id="txtCMsg" placeholder="" >
                             </textarea>
                         </fieldset>
-                    <a data-role="button" data-transition="fade" href="#page8" data-icon="arrow-r" data-iconpos="right">
-                        Enviar
-                    </a>
-                </form>            
-            
+                    </div>
+                    <input type="hidden" name="type" value="appB"/>
+                    <input value="Enviar" type="button" onclick="enviaContacto()" />
+                </form>       
         </div><!-- /content_contact -->
         <div data-role="footer" data-position="fixed">
         	<div data-role="navbar" data-iconpos="top">
@@ -76,8 +83,5 @@
             </div>
         </div><!-- /footer -->
     </div><!-- /page_index -->
-    
-    
-    
 </body>
 </html>
