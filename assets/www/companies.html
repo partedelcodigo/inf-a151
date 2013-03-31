@@ -10,7 +10,7 @@
         <script src="js/jquery.mobile/jquery-1.7.1.min.js"></script>
         <script src="js/jquery.mobile/jquery.mobile-1.1.1.min.js"></script>
         <script type="text/javascript">
-			var useUpdateFunctions = false;
+            var useUpdateFunctions = false;
         </script>
         <script src="js/update-functions.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/main-functions.js" type="text/javascript" charset="utf-8"></script>
@@ -48,21 +48,20 @@
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
-                        <li><a href="#" data-icon="info">Inventario</a>
-                        </li>
-                        <li><a href="#" data-icon="check">Exportar</a></li>
-                        <li><a href="#" data-icon="grid">Contacto</a></li>
+                        <li><a href="companies.html" data-url="companies.html" data-icon="info">Inventario</a></li>
+                        <li><a href="export.html" data-url="export.html" rel="external" data-icon="check">Exportar</a></li>
+                        <li><a href="contact.html" data-url="contact.html" rel="external" data-icon="grid">Contacto</a></li>
                     </ul>        
                 </div>
             </div><!-- /footer -->
         </div><!-- /page_index -->
         <div id="page_list_products" data-role="page">
-    	<div data-role="header" data-position="fixed">
-        	<a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
-            <h3>Listado de productos</h3>
-        </div><!-- /header -->
-        <div data-role="content" class="content_page">
-            <div id="r_status" data-role="fieldcontain">
+            <div data-role="header" data-position="fixed">
+                <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+                <h3>Listado de productos</h3>
+            </div><!-- /header -->
+            <div data-role="content" class="content_page">
+                <div id="r_status" data-role="fieldcontain">
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <legend>
                             Estado:
@@ -81,19 +80,18 @@
                         </label>
                     </fieldset>
                 </div>
-            <ul id="ul_products" data-role="listview" data-divider-theme="d">
-            </ul>
-        </div><!-- /content_page -->
-        <div data-role="footer" data-position="fixed">
-        	<div data-role="navbar" data-iconpos="top">
-            	<ul>
-                	<li><a href="#" data-icon="info">Inventario</a>
-                    </li>
-                    <li><a href="#" data-icon="check">Exportar</a></li>
-                    <li><a href="#" data-icon="grid">Contacto</a></li>
-                </ul>        
-            </div>
-        </div><!-- /footer -->
-    </div><!-- /page_index -->
+                <ul id="ul_products" data-role="listview" data-divider-theme="d">
+                </ul>
+            </div><!-- /content_page -->
+           <div data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a href="companies.html" data-url="companies.html" data-icon="info">Inventario</a></li>
+                        <li><a href="export.html" data-url="export.html" rel="external" data-icon="check">Exportar</a></li>
+                        <li><a href="contact.html" data-url="contact.html" rel="external" data-icon="grid">Contacto</a></li>
+                    </ul>        
+                </div>
+            </div><!-- /footer -->
+        </div><!-- /page_index -->
     </body>
 </html>
