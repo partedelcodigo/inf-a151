@@ -175,6 +175,7 @@ var bus={
                             dBhtml = '';
                         }
                         $('#ul_products').html(dBhtml);
+                        $("#ul_products").listview('refresh');
                     });
         });
         
