@@ -49,7 +49,11 @@ var bus={
     category:'Laptops',
     brand:'Apple',
     filterBrand:function(category){
-        var sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
+        var sql_c;
+        if(category=='')
+            sql_c="SELECT brand FROM products GROUP BY brand"
+        else
+            sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
         //console.log("--->" + sql_c);
         db.transaction(function(tx) {
             tx.executeSql(sql_c, [],
@@ -126,6 +130,7 @@ function errorCB( err ) {
 function successCB() {
 	alert("Success!");
 	db.transaction( queryDB, errorCB );
+        bus.filterBrand('');
 }
 
 function queryDB( tx ) {
