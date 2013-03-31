@@ -100,6 +100,9 @@ function populateDB( tx ) {
 var bus={
     category:'',
     brand:'',
+    //page:0,
+    tot:0,
+    status:'',
     filterBrand:function(category){
         bus.category=category;
         var sql_c;
@@ -148,22 +151,52 @@ var bus={
             );
         });        
     },
-    filterProduct:function(status){
-        var sql_p;
-        sql_p="SELECT * FROM products WHERE 1=1";
+    filterProduct:function(status,pag){
+        var sql_p,sql_p_0,sql_p_1,sql_c;
+        sql_p_0="SELECT * ";
+        sql_p_1="SELECT COUNT(*) AS TOT";
+        sql_p=" FROM products WHERE 1=1";
         if(bus.category!='')
             sql_p+=" AND category='"+bus.category+"'";
         if(bus.brand!='')
-            sql_p+=" AND status='"+bus.brand+"'";
-        if(status!='All')
+            sql_p+=" AND brand='"+bus.brand+"'";
+        if(status!='All'){
             sql_p+=" AND status='"+status+"'";
+        }
+        bus.status=status;
+            
         sql_p+=" ORDER BY brand";
-        //console.log("--->" + sql_p);
+        if(pag==0)
+            sql_c=sql_p_1+sql_p;
+        sql_p+=" LIMIT "+pag+", 10";
+        sql_p=sql_p_0+sql_p;
+        
+        
+var dBhtml;
+dBhtml='';
+        if(pag==0){
+            //console.log("-c-->" + sql_c);
+            db.transaction(function(tx) {
+                tx.executeSql(sql_c, [],
+                    function(tx, results) {
+                        $('#ul_products').html('');
+                        if (results.rows.length == 1) {
+                            bus.tot=results.rows.item(0)['TOT'];
+                            dBhtml='<li data-role="list-divider">'+bus.tot + ' productos encontrados.</li>';
+                        }
+                        else{
+                            dBhtml='<li data-role="list-divider">NO EXISTEN productos encontrados.</li>';
+                        }
+                    });
+            });     
+        }
+            
         db.transaction(function(tx) {
+            //console.log("-p-->" + sql_p);
             tx.executeSql(sql_p, [],
                     function(tx, results) {
-                        var len = results.rows.length, i, dBhtml, c, image, pro;
-                        dBhtml = '';
+                        var len = results.rows.length, i, dBhtmlMas, image, pro;
+                        dBhtmlMas = '';
                         if (len > 0) {
                             //console.log("--->listado productos");
                             for (i = 0; i < len; i++) {
@@ -174,14 +207,22 @@ var bus={
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
                                 dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
                                 dBhtml += '<br /><span class="note">Precio: ' + pro.price + '</span></p></a></li>';
-                            }
-
+                                var sig = (pag + 1);
+                                if ((sig * 10) < bus.tot)
+                                    //dBhtmlMas = '<input type="button" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');" value="Ver Mas" />';
+                                    dBhtmlMas = '<br><a id="btnMore" data-role="button" href="#" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');">Ver Mas</a>';
+                                }
                         } else {
                             //console.log("--->limpiar");
                             dBhtml = '';
                         }
-                        $('#ul_products').html(dBhtml);
+                        $('#ul_products').html($('#ul_products').html()+dBhtml);
                         $("#ul_products").listview('refresh');
+                        $('#div_mas').html(dBhtmlMas);
+                        if(dBhtmlMas!=''){
+                            $('#btnMore').button();
+                            //$('#btnMore').button('refresh');
+                        }
                     });
         });
         
