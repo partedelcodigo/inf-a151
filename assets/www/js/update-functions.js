@@ -63,10 +63,10 @@ function populateDB( tx ) {
 	for( var i = 0; i < data2Save.length; i++ ) {
 		desc = data2Save[i].description;
 		desc = addslashes( desc );
-		console.log("desc: " + desc);
+		//console.log("desc: " + desc);
 		desc = '';
 		query = "INSERT INTO products(title, description, price, brand, category, status) VALUES('" + data2Save[i].title + "', '" + desc + "','" + data2Save[i].price + "','" + data2Save[i].brand + "','" + data2Save[i].category + "','" + data2Save[i].status + "')";
-		console.log( query );
+		//console.log( query );
 		tx.executeSql( query );
 		//console.log( "INSERT INTO products(title, description, price, brand, category, status) VALUES('" + data2Save[i].title + "', '" + ; + "','" + data2Save[i].price + "','" + data2Save[i].brand + "','" + data2Save[i].category + "','" + data2Save[i].status + "')" );
 	}
@@ -98,11 +98,13 @@ function populateDB( tx ) {
 		//console.log("-->"+ query );
 		tx.executeSql( query );		
 	}
+        bus.filterBrand('');
 }
 var bus={
-    category:'Laptops',
-    brand:'Apple',
+    category:'',
+    brand:'',
     filterBrand:function(category){
+        bus.category=category;
         var sql_c;
         if(category=='')
             sql_c="SELECT brand FROM products GROUP BY brand"
@@ -145,7 +147,46 @@ var bus={
                         $('#div_brand').html(dBhtml);
                     }
             );
+        });        
+    },
+    filterProduct:function(status){
+        var sql_p;
+        sql_p="SELECT * FROM products WHERE 1=1";
+        if(bus.category!='')
+            sql_p+=" AND category='"+bus.category+"'";
+        if(bus.brand!='')
+            sql_p+=" AND status='"+bus.brand+"'";
+        if(status!='All')
+            sql_p+=" AND status='"+status+"'";
+        sql_p+=" ORDER BY brand";
+        //console.log("--->" + sql_p);
+        db.transaction(function(tx) {
+            tx.executeSql(sql_p, [],
+                    function(tx, results) {
+                        var len = results.rows.length, i, dBhtml, c, image, pro;
+                        image = 'logo_hp.png';
+                        dBhtml = '';
+                        if (len > 0) {
+                            //console.log("--->listado productos");
+                            for (i = 0; i < len; i++) {
+                                pro = results.rows.item(i);
+                                dBhtml += '<li><a href="#"><img src="images/' + image + '"/>';
+                                dBhtml += '<h2>s' + pro.description + '</h2>';
+                                dBhtml += '<p><strong>MPN: </strong>' + pro.title;
+                                dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
+                                dBhtml += '<br /><span class="note">Precio: ' + pro.price + '</span></p></a></li>';
+                            }
+
+                        } else {
+                            //console.log("--->limpiar");
+                            dBhtml = '';
+                        }
+                        $('#ul_products').html(dBhtml);
+                    });
         });
         
+            
+                        
+       
     }
 };
