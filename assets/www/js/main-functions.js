@@ -36,8 +36,11 @@ function addslashes(string) {
         replace(/\n/g, '\\n').
         replace(/\f/g, '\\f').
         replace(/\r/g, '\\r').
-        replace(/'/g, '\\\'').
-        replace(/"/g, '\\"');
+        replace(/'/g, '-').
+        replace(/"/g, '-');
+    
+    /*replace(/'/g, '\\\'').
+    replace(/"/g, '\\"');*/
 }
 
 function enviaContacto() {
