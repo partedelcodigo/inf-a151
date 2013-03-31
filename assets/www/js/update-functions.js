@@ -1,6 +1,9 @@
-var data2SaveCat = new Array;
-var data2SaveCatName = new Array;
+var data2SaveCat = new Array();
+var data2SaveCatName = new Array();
+var tableProductsExists = false;
+var tableCategoriesExists = false;
 
+db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );
 function checkUpdates() {
     $.ajax({
 		url:'http://www.codigobase.com/all-brands/getData.php',
@@ -15,20 +18,36 @@ function checkUpdates() {
             console.log("longitud " + empObjectLen);
             //--console.log("valor: " + empObject);
 
-			/*for( var i = 0; i < empObjectLen; i++ ) {
-                data2Save[i] = empObject[i];
-            }*/
 			data2Save = empObject;
 
-			db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );		
+			// here 
+			db.transaction( checkPreviousData, errorCB, successCB );
 			db.transaction( populateDB, errorCB, successCB );
-			db.transaction( queryDB, errorCB );
+			//db.transaction( queryDB, errorCB );
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
 			console.log("There is no Internet conecction");
         }
     });
+}
+
+function checkPreviousData( tx ) {
+	var query = "SELECT name FROM sqlite_master WHERE type = 'table'";
+	
+	tx.executeSql( query, [], checkTables, errorCB );
+}
+
+function checkTables( tx, result ) {
+	var len = result.rows.length;
+	
+	for( var i = 0; i < len; i++ ) {
+		console.log( "Table: " + result.rows.item(i).name );
+		if( result.rows.item(i).name == 'products' )
+			tableProductsExists = true;
+		else if( result.rows.item(i).name == 'categories' )
+			tableCategoriesExists = true;
+	}
 }
 
 function errorCB( err ) {
@@ -58,46 +77,57 @@ function querySuccess( tx, result ) {
 /* Create database and populate it */
 function populateDB( tx ) {
 	var desc, query;
-	var createTable = "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,	price REAL NULL,brand TEXT NULL,category TEXT NULL,status TEXT NULL)";
 	
-	tx.executeSql( createTable );
-	
-	for( var i = 0; i < data2Save.length; i++ ) {
-		desc = data2Save[i].description;
-		desc = addslashes( desc );
-		//--console.log("desc: " + desc);
-		//--desc = '';
-		query = "INSERT INTO products(title, description, price, brand, category, status) VALUES('" + data2Save[i].title + "', '" + desc + "','" + data2Save[i].price + "','" + data2Save[i].brand + "','" + data2Save[i].category + "','" + data2Save[i].status + "')";
-		//--console.log( query );
-		tx.executeSql( query );
+	console.log( "table products: " + tableProductsExists + "--" );
+	if( !tableProductsExists ) {
+		console.log("starting create tables");	
+		var createTable = "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,	price REAL NULL,brand TEXT NULL,category TEXT NULL,status TEXT NULL)";
+		tx.executeSql( createTable );
+		
+		// adding indexes
+		tx.executeSql( "CREATE INDEX IF NOT EXISTS filtros ON products (brand, category, status)" );
+		console.log("Index created");
+		
+		for( var i = 0; i < data2Save.length; i++ ) {
+			desc = data2Save[i].description;
+			desc = addslashes( desc );
+			
+			query = "INSERT INTO products(title, description, price, brand, category, status) VALUES('" + data2Save[i].title + "', '" + desc + "','" + data2Save[i].price + "','" + data2Save[i].brand + "','" + data2Save[i].category + "','" + data2Save[i].status + "')";
+			//--console.log( query );
+			tx.executeSql( query );
+		}
 	}
 	
-	tx.executeSql("DROP TABLE IF EXISTS categories");
-	var createTable = "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,image TEXT NOT NULL)";
-	tx.executeSql( createTable );
-        
-    data2SaveCat = new Array;
-    data2SaveCatName = new Object;
-    
-    data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
-    data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
-    data2SaveCat.push({title:"HP",description:"",image:"logo_hp.png"});
-    data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
-    data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
-    data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
-    data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
-    for( var i = 0; i < data2SaveCat.length; i++ ) {
-		var cTit = data2SaveCat[i].title;
-                data2SaveCatName[data2SaveCat[i].title]=data2SaveCat[i]
-                var cDes ="1";
-		var cImg = data2SaveCat[i].image;
-	            //console.log("--->" + i);
-		query = "INSERT INTO categories(title, description, image) VALUES('" + cTit+ "', '" + cDes + "','images/" + cImg + "')";
-		//console.log("-->"+ query );
-		tx.executeSql( query );		
+	//if( !tableCategoriesExists ) {
+	if( false ) {
+		tx.executeSql("DROP TABLE IF EXISTS categories");
+		var createTable = "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,image TEXT NOT NULL)";
+		tx.executeSql( createTable );
+	        
+	    data2SaveCat = new Array();
+	    data2SaveCatName = new Object;
+	    
+	    data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
+	    data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
+	    data2SaveCat.push({title:"HP",description:"",image:"logo_hp.png"});
+	    data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
+	    data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
+	    data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
+	    data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
+	    for( var i = 0; i < data2SaveCat.length; i++ ) {
+			var cTit = data2SaveCat[i].title;
+	                data2SaveCatName[data2SaveCat[i].title]=data2SaveCat[i]
+	                var cDes ="1";
+			var cImg = data2SaveCat[i].image;
+		            //console.log("--->" + i);
+			query = "INSERT INTO categories(title, description, image) VALUES('" + cTit+ "', '" + cDes + "','images/" + cImg + "')";
+			//console.log("-->"+ query );
+			tx.executeSql( query );		
+		}
 	}
-        bus.filterBrand('');
+    //bus.filterBrand('');
 }
+
 var bus={
     category:'',
     brand:'',
@@ -111,7 +141,7 @@ var bus={
             sql_c="SELECT brand FROM products GROUP BY brand"
         else
             sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
-        //console.log("--->" + sql_c);
+        console.log("--->" + sql_c);
         db.transaction(function(tx) {
             tx.executeSql(sql_c, [],
                     function(tx, results) {
@@ -232,3 +262,36 @@ dBhtml='';
        
     }
 };
+
+if( executeFilters ) {
+	db.transaction( populateCategory, errorCB, successCB );
+}
+
+function populateCategory( tx ) {
+	tx.executeSql("DROP TABLE IF EXISTS categories");
+	var createTable = "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,image TEXT NOT NULL)";
+	tx.executeSql( createTable );
+        
+    data2SaveCat = new Array();
+    data2SaveCatName = new Object;
+    
+    data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
+    data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
+    data2SaveCat.push({title:"HP",description:"",image:"logo_hp.png"});
+    data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
+    data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
+    data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
+    data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
+    for( var i = 0; i < data2SaveCat.length; i++ ) {
+		var cTit = data2SaveCat[i].title;
+                data2SaveCatName[data2SaveCat[i].title]=data2SaveCat[i]
+                var cDes ="1";
+		var cImg = data2SaveCat[i].image;
+	            //console.log("--->" + i);
+		query = "INSERT INTO categories(title, description, image) VALUES('" + cTit+ "', '" + cDes + "','images/" + cImg + "')";
+		//console.log("-->"+ query );
+		tx.executeSql( query );		
+	}
+    
+    bus.filterBrand('');
+}
