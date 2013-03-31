@@ -203,7 +203,7 @@ dBhtml='';
                             for (i = 0; i < len; i++) {
                                 pro = results.rows.item(i);
                                 image=data2SaveCatName[''+pro.brand].image;
-                                dBhtml += '<li><a href="#"><img src="images/' + image + '"/>';
+                                dBhtml += '<li><a href="#page_detail_products"><img src="images/' + image + '"/>';
                                 dBhtml += '<h2>s' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
                                 dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
