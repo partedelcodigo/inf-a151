@@ -66,15 +66,15 @@
                         <legend>
                             Estado:
                         </legend>
-                        <input id="radio1" name="" value="All" type="radio" onclick="bus.filterProduct(this.value);">
+                        <input id="radio1" name="" value="All" type="radio" onclick="bus.filterProduct(this.value,0);">
                         <label for="radio1">
                             Todos
                         </label>
-                        <input id="radio2" name="" value="New" type="radio" onclick="bus.filterProduct(this.value);">
+                        <input id="radio2" name="" value="New" type="radio" onclick="bus.filterProduct(this.value,0);">
                         <label for="radio2">
                             Nuevos
                         </label>
-                        <input id="radio3" name="" value="Refurbished" type="radio" onclick="bus.filterProduct(this.value);">
+                        <input id="radio3" name="" value="Refurbished" type="radio" onclick="bus.filterProduct(this.value,0);">
                         <label for="radio3">
                             Refurbished
                         </label>
@@ -82,6 +82,7 @@
                 </div>
                 <ul id="ul_products" data-role="listview" data-divider-theme="d">
                 </ul>
+                <div id="div_mas"></div>
             </div><!-- /content_page -->
            <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
