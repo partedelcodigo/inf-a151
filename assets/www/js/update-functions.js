@@ -1,4 +1,5 @@
 var data2SaveCat = new Array;
+var data2SaveCatName = new Array;
 
 function checkUpdates() {
     $.ajax({
@@ -75,16 +76,19 @@ function populateDB( tx ) {
 	tx.executeSql( createTable );
         
     data2SaveCat = new Array;
+    data2SaveCatName = new Object;
+    
     data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
     data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
-    data2SaveCat.push({title:"Hp",description:"",image:"logo_hp.png"});
+    data2SaveCat.push({title:"HP",description:"",image:"logo_hp.png"});
     data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
     data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
     data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
     data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
     for( var i = 0; i < data2SaveCat.length; i++ ) {
 		var cTit = data2SaveCat[i].title;
-	            var cDes ="1";
+                data2SaveCatName[data2SaveCat[i].title]=data2SaveCat[i]
+                var cDes ="1";
 		var cImg = data2SaveCat[i].image;
 	            //console.log("--->" + i);
 		query = "INSERT INTO categories(title, description, image) VALUES('" + cTit+ "', '" + cDes + "','images/" + cImg + "')";
@@ -114,10 +118,12 @@ var bus={
                             c=1;
                             for (i = 0; i < len; i++) {
                                //console.log("--brand->" + results.rows.item(i).brand);
-                                for (j = 0; j < data2SaveCat.length; j++) {
+                                /*for (j = 0; j < data2SaveCat.length; j++) {
                                     if(data2SaveCat[j]['title']==results.rows.item(i).brand)
                                         image=data2SaveCat[j]['image'];
-                                }
+                                }*/
+                                //console.log("-marca-->" + results.rows.item(i).brand);
+                                image=data2SaveCatName[''+results.rows.item(i).brand].image;
                                 if (c == 1) {
                                     type = 'a';
                                 } else {
@@ -157,12 +163,12 @@ var bus={
             tx.executeSql(sql_p, [],
                     function(tx, results) {
                         var len = results.rows.length, i, dBhtml, c, image, pro;
-                        image = 'logo_hp.png';
                         dBhtml = '';
                         if (len > 0) {
                             //console.log("--->listado productos");
                             for (i = 0; i < len; i++) {
                                 pro = results.rows.item(i);
+                                image=data2SaveCatName[''+pro.brand].image;
                                 dBhtml += '<li><a href="#"><img src="images/' + image + '"/>';
                                 dBhtml += '<h2>s' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
