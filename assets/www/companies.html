@@ -21,6 +21,7 @@
             <div data-role="header" data-position="fixed">
                 <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
                 <h3>Marcas disponibles</h3>
+                <a data-role="button" href="#page_list_products" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
             </div><!-- /header -->
             <div data-role="content" class="content_page">
                 <div id="r_cat" data-role="fieldcontain">
@@ -55,5 +56,44 @@
                 </div>
             </div><!-- /footer -->
         </div><!-- /page_index -->
+        <div id="page_list_products" data-role="page">
+    	<div data-role="header" data-position="fixed">
+        	<a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+            <h3>Listado de productos</h3>
+        </div><!-- /header -->
+        <div data-role="content" class="content_page">
+            <div id="r_status" data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                        <legend>
+                            Estado:
+                        </legend>
+                        <input id="radio1" name="" value="All" type="radio" onclick="bus.filterProduct(this.value);">
+                        <label for="radio1">
+                            Todos
+                        </label>
+                        <input id="radio2" name="" value="New" type="radio" onclick="bus.filterProduct(this.value);">
+                        <label for="radio2">
+                            Nuevos
+                        </label>
+                        <input id="radio3" name="" value="Refurbished" type="radio" onclick="bus.filterProduct(this.value);">
+                        <label for="radio3">
+                            Refurbished
+                        </label>
+                    </fieldset>
+                </div>
+            <ul id="ul_products" data-role="listview" data-divider-theme="d">
+            </ul>
+        </div><!-- /content_page -->
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="navbar" data-iconpos="top">
+            	<ul>
+                	<li><a href="#" data-icon="info">Inventario</a>
+                    </li>
+                    <li><a href="#" data-icon="check">Exportar</a></li>
+                    <li><a href="#" data-icon="grid">Contacto</a></li>
+                </ul>        
+            </div>
+        </div><!-- /footer -->
+    </div><!-- /page_index -->
     </body>
 </html>
