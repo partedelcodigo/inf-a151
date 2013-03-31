@@ -41,7 +41,8 @@ function successCB() {
 }
 
 function queryDB( tx ) {
-	tx.executeSql( "SELECT * FROM products", [], querySuccess, errorCB );
+        //no parece necesario
+	//tx.executeSql( "SELECT * FROM products", [], querySuccess, errorCB );
 }
 
 function querySuccess( tx, result ) {
