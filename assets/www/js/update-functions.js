@@ -233,8 +233,8 @@ dBhtml='';
                             for (i = 0; i < len; i++) {
                                 pro = results.rows.item(i);
                                 image=data2SaveCatName[''+pro.brand].image;
-                                dBhtml += '<li><a href="#page_detail_products"><img src="images/' + image + '"/>';
-                                dBhtml += '<h2>s' + pro.description + '</h2>';
+                                dBhtml += '<li><a href="#page_detail_products" onclick="bus.detailProduct('+pro.id+')"><img src="images/' + image + '"/>';
+                                dBhtml += '<h2>' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
                                 dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
                                 dBhtml += '<br /><span class="note">Precio: ' + pro.price + '</span></p></a></li>';
@@ -260,6 +260,29 @@ dBhtml='';
             
                         
        
+    },
+    detailProduct:function(id){
+        console.log("--id->" + id);
+        var pro,sql_p;
+        sql_p="SELECT * FROM products WHERE id="+id;
+        console.log("-sql_p-->" + sql_p);
+               db.transaction(function(tx) {
+                tx.executeSql(sql_p, [],
+                    function(tx, results) {
+                        if (results.rows.length == 1) {
+                            pro=results.rows.item(0);
+                            console.dir(pro);
+                            console.log("--brand->" + pro.brand);
+                            $('#dProBrand').html(pro.brand);
+                            $('#dProTitle').html(pro.title);
+                            $('#dProStatus').html(pro.status);
+                            $('#dProPrice').html(pro.price);
+                            $('#dProDescription').html(pro.description);
+                            
+                                          
+                        }
+                    });
+                });
     }
 };
 
