@@ -11,7 +11,8 @@
         <script src="js/jquery.mobile/jquery.mobile-1.1.1.min.js"></script>
         <script type="text/javascript">
 			var useUpdateFunctions = false;
-		</script>
+        </script>
+        <script src="js/update-functions.js" type="text/javascript" charset="utf-8"></script>
         <script src="js/main-functions.js" type="text/javascript" charset="utf-8"></script>
     </head>
 
@@ -27,43 +28,21 @@
                         <legend>
                             Categorias:
                         </legend>
-                        <input id="radio1" name="" value="Laptops" type="radio" checked="checked">
+                        <input id="radio1" name="" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio1">
                             Laptops
                         </label>
-                        <input id="radio2" name="" value="Electronics" type="radio">
+                        <input id="radio2" name="" value="Electronics" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio2">
                             Electronics
                         </label>
-                        <input id="radio3" name="" value="Others" type="radio">
+                        <input id="radio3" name="" value="Others" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio3">
                             Others
                         </label>
                     </fieldset>
                 </div>
-                <div class="ui-grid-b">
-                    <div class="ui-block-a">
-                        <a href="#"><img src="images/logo_apple.png"/></a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#"><img src="images/logo_asus.png"/></a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#"><img src="images/logo_hp.png"/></a>
-                    </div>
-                    <div class="ui-block-a">
-                        <a href="#"><img src="images/logo_samsung.png"/></a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#"><img src="images/sony_sony.png"/></a>
-                    </div>
-                    <div class="ui-block-c">
-                        <a href="#"><img src="images/logo_toshiba.png"/></a>
-                    </div>
-                    <div class="ui-block-a">
-                        <a href="#"><img src="images/logo_acer.png"/></a>
-                    </div>
-                </div>        
+                <div id="div_brand" class="ui-grid-b">Seleccione una categoria</div>
             </div><!-- /content_page -->
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">

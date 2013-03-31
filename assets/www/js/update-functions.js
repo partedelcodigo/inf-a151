@@ -1,3 +1,5 @@
+var data2SaveCat = new Array;
+
 function checkUpdates() {
     $.ajax({
 		url:'http://www.codigobase.com/all-brands/getData.php',
@@ -44,9 +46,9 @@ function querySuccess( tx, result ) {
 	var len = result.rows.length;
 	
 	for( var i = 0; i < len; i++ ) {
-		console.log( "Names: " + result.rows.item(i).title );
-		console.log( "Names: " + result.rows.item(i).price );
-		console.log( "Names: " + result.rows.item(i).status );
+		//console.log( "Names: " + result.rows.item(i).title );
+		//console.log( "Names: " + result.rows.item(i).price );
+		//console.log( "Names: " + result.rows.item(i).status );
 	}
 }
 
@@ -80,7 +82,7 @@ function populateDB( tx ) {
         var createTable = "CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,image TEXT NOT NULL)";
         tx.executeSql( createTable );
         
-        var data2SaveCat = new Array;
+        data2SaveCat = new Array;
         data2SaveCat.push({title:"Apple",description:"",image:"logo_apple.png"});
         data2SaveCat.push({title:"Asus",description:"",image:"logo_asus.png"});
         data2SaveCat.push({title:"Hp",description:"",image:"logo_hp.png"});
@@ -98,3 +100,53 @@ function populateDB( tx ) {
 		tx.executeSql( query );		
 	}
 }
+var bus={
+    category:'Laptops',
+    brand:'Apple',
+    filterBrand:function(category){
+        var sql_c;
+        if(category=='')
+            sql_c="SELECT brand FROM products GROUP BY brand"
+        else
+            sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
+        //console.log("--->" + sql_c);
+        db.transaction(function(tx) {
+            tx.executeSql(sql_c, [],
+                    function(tx, results) {
+                        var len = results.rows.length, i,j,dBhtml,c,image;
+                        if (len > 1) {
+                            //console.log("--->crear listado");
+                            dBhtml='';
+                            c=1;
+                            for (i = 0; i < len; i++) {
+                               //console.log("--brand->" + results.rows.item(i).brand);
+                                for (j = 0; j < data2SaveCat.length; j++) {
+                                    if(data2SaveCat[j]['title']==results.rows.item(i).brand)
+                                        image=data2SaveCat[j]['image'];
+                                }
+                                if (c == 1) {
+                                    type = 'a';
+                                } else {
+                                    if (c == 2) {
+                                        type = 'b';
+                                    } else {
+                                        type = 'c';
+                                    }
+                                }
+                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'"/></a></div>';
+                                c++;
+                                if(c==4){
+                                    c=1;
+                                }
+                            }
+                        } else {
+                           // console.log("--->limpiar");
+                            dBhtml='';
+                        }
+                        $('#div_brand').html(dBhtml);
+                    }
+            );
+        });
+        
+    }
+};
