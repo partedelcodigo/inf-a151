@@ -12,9 +12,10 @@ function checkUpdates() {
             console.log("longitud " + empObjectLen);
             //--console.log("valor: " + empObject);
 
-			for( var i = 0; i < empObjectLen; i++ ) {
+			/*for( var i = 0; i < empObjectLen; i++ ) {
                 data2Save[i] = empObject[i];
-            }
+            }*/
+			data2Save = empObject;
 
 			db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );		
 			db.transaction( populateDB, errorCB, successCB );
@@ -62,7 +63,7 @@ function populateDB( tx ) {
 		desc = data2Save[i].description;
 		desc = addslashes( desc );
 		console.log("desc: " + desc);
-		desc = '';
+		//--desc = '';
 		query = "INSERT INTO products(title, description, price, brand, category, status) VALUES('" + data2Save[i].title + "', '" + desc + "','" + data2Save[i].price + "','" + data2Save[i].brand + "','" + data2Save[i].category + "','" + data2Save[i].status + "')";
 		console.log( query );
 		tx.executeSql( query );
