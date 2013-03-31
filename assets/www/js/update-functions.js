@@ -229,8 +229,5 @@ dBhtml='';
             
                         
        
-    },
-    addBrand:function(){
-        
     }
 };
