@@ -167,7 +167,7 @@ var bus={
                                         type = 'c';
                                     }
                                 }
-                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'"/></a></div>';
+                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
                                 c++;
                                 if(c==4){
                                     c=1;
