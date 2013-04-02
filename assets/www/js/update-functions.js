@@ -168,6 +168,7 @@ var bus={
                                     }
                                 }
                                 dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
+                                //--dBhtml+='<div class="ui-block-'+type+'"><img src="images/'+image+'" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'" /></div>';
                                 c++;
                                 if(c==4){
                                     c=1;
@@ -273,7 +274,22 @@ dBhtml='';
                             pro=results.rows.item(0);
                             console.dir(pro);
                             console.log("--brand->" + pro.brand);
-                            $('#dProBrand').html(pro.brand);
+                            var logos = new Array();
+                            logos[0] = new Array('Apple', 'logo_apple.png');
+                            logos[1] = new Array('Asus', 'logo_asus.png');
+                            logos[2] = new Array('HP', 'logo_hp.png');
+                            logos[3] = new Array('Samsung', 'logo_samsung.png');
+                            logos[4] = new Array('Sony', 'logo_sony.png');
+                            logos[5] = new Array('Toshiba', 'logo_toshiba.png');
+                            logos[6] = new Array('Acer', 'logo_acer.png');
+                            
+                            for( var l = 0; l < logos.length; l++ ) {
+                            	if( logos[l][0] == pro.brand ){
+                            		//--$('#dProBrand').html(logos[l][1]);                            		
+                            		$('#dProBrand').attr('src','images/'+logos[l][1]);
+                            	}
+                            }
+                            
                             $('#dProTitle').html(pro.title);
                             $('#dProStatus').html(pro.status);
                             $('#dProPrice').html(pro.price);
