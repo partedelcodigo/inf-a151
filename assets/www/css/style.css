@@ -1,5 +1,5 @@
 /*------------------------------------*\
-    BolMeg
+    app AllBrandsUSA
 \*------------------------------------*/
 
 /*------------------------------------*\
@@ -47,3 +47,16 @@ div[data-role="content"] .ui-li-heading {
 	font-size:14px;
 	margin-top:6px;
 	}
+
+/* modificacion de radio bottom companies */
+div.ui-radio{
+	width: 33%;
+}
+div.ui-radio label{
+	width: 100%;
+}
+
+
+
+
+
