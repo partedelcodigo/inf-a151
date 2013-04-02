@@ -34,7 +34,7 @@
                 <div id="r_cat" data-role="fieldcontain">
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <legend>
-                            Categorias:
+                            Categorías:
                         </legend>
                         <input id="radio1" name="" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio1">
@@ -50,7 +50,7 @@
                         </label>
                     </fieldset>
                 </div>
-                <div id="div_brand" class="ui-grid-b">Seleccione una categoria</div>
+                <div id="div_brand" class="ui-grid-b">Seleccione una categoría</div>
             </div><!-- /content_page -->
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
@@ -106,38 +106,18 @@
                 <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
                 <h3>Producto</h3>
             </div><!-- /header -->
-            <div data-role="content" id="detail_product">
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Marca</h3>
-                        <div id="dProBrand"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>MNP</h3>
-                        <div id="dProTitle"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Condition</h3>
-                        <div id="dProStatus"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Precio</h3>
-                        <div id="dProPrice"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Descripcion</h3>
-                        <div id="dProDescription"></div>
-                    </div>
+            <div data-role="content" id="content_detail">
+        		<h3>Tipo de producto: <span id="dCategory"></span></h3>
+        		<hr>
+        		<p>
+        			<img src="images/logo_acer.png" /> <div id="dProBrand"></div>
+        			<strong>MPN:</strong> <div id="dProTitle"></div>
+        			<strong>Condición:</strong> <div id="dProStatus"></div>
+        			<span class="note">Precio: $<div id="dProPrice"></div></span>
+        			<p>
+        			<strong>Descripcion:</strong>
+        			<div id="dProDescription"></div>
                 </div>
             </div>
-        </div>
     </body>
 </html>

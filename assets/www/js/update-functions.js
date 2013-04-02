@@ -278,8 +278,7 @@ dBhtml='';
                             $('#dProStatus').html(pro.status);
                             $('#dProPrice').html(pro.price);
                             $('#dProDescription').html(pro.description);
-                            
-                                          
+                            $('#dCategory').html( pro.category );
                         }
                     });
                 });
