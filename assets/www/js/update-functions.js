@@ -167,7 +167,7 @@ var bus={
                                         type = 'c';
                                     }
                                 }
-                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'"/></a></div>';
+                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
                                 c++;
                                 if(c==4){
                                     c=1;
@@ -237,7 +237,7 @@ dBhtml='';
                                 dBhtml += '<h2>' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
                                 dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
-                                dBhtml += '<br /><span class="note">Precio: ' + pro.price + '</span></p></a></li>';
+                                dBhtml += '<br /><span class="note">Precio: $' + pro.price + '</span></p></a></li>';
                                 var sig = (pag + 1);
                                 if ((sig * 10) < bus.tot)
                                     //dBhtmlMas = '<input type="button" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');" value="Ver Mas" />';
@@ -278,8 +278,7 @@ dBhtml='';
                             $('#dProStatus').html(pro.status);
                             $('#dProPrice').html(pro.price);
                             $('#dProDescription').html(pro.description);
-                            
-                                          
+                            $('#dCategory').html( pro.category );
                         }
                     });
                 });

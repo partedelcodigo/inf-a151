@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>AllbrandsUSA - Nosotros</title>
+        <title>AllbrandsUSA - Inventario</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="text/javascript" src="js/cordova-2.4.0.js"></script>
         <link rel="stylesheet" href="js/jquery.mobile/jquery.mobile-1.1.1.min.css"/>
         <link rel="stylesheet" href="css/style.css"/>
 
@@ -26,14 +27,19 @@
         <div id="page_list_companies" data-role="page">
             <div data-role="header" data-position="fixed">
                 <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+<<<<<<< HEAD
                 <h3>Marcas disponibles</h3>
                 <a data-role="button" href="#page_list_products" onclick="bus.filterProduct('All',0);" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+=======a
+                <h3>Inventario</h3>
+                <a data-role="button" href="#page_list_products" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+>>>>>>> 4a322130056bfb5475d6e1938cc90fe65be2b593
             </div><!-- /header -->
             <div data-role="content" class="content_page">
                 <div id="r_cat" data-role="fieldcontain">
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <legend>
-                            Categorias:
+                            Categorías:
                         </legend>
                         <input id="radio1" name="" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio1">
@@ -49,7 +55,7 @@
                         </label>
                     </fieldset>
                 </div>
-                <div id="div_brand" class="ui-grid-b">Seleccione una categoria</div>
+                <div id="div_brand" class="ui-grid-b">Seleccione una categoría</div>
             </div><!-- /content_page -->
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
@@ -64,7 +70,7 @@
         <div id="page_list_products" data-role="page">
             <div data-role="header" data-position="fixed">
                 <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
-                <h3>Listado de productos</h3>
+                <h3>Productos</h3>
             </div><!-- /header -->
             <div data-role="content" class="content_page">
                 <div id="r_status" data-role="fieldcontain">
@@ -103,40 +109,20 @@
         <div data-role="page" id="page_detail_products">
             <div data-role="header" data-position="fixed">
                 <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
-                <h3>Detalle de producto</h3>
+                <h3>Producto</h3>
             </div><!-- /header -->
-            <div data-role="content" id="detail_product">
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Marca</h3>
-                        <div id="dProBrand"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>MNP</h3>
-                        <div id="dProTitle"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Condition</h3>
-                        <div id="dProStatus"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Precio</h3>
-                        <div id="dProPrice"></div>
-                    </div>
-                </div>
-                <div data-role="collapsible-set" data-theme="a" data-content-theme="c" data-mini="true">
-                    <div data-role="collapsible" data-collapsed="false">
-                        <h3>Descripcion</h3>
-                        <div id="dProDescription"></div>
-                    </div>
+            <div data-role="content" id="content_detail">
+        		<h3>Tipo de producto: <span id="dCategory"></span></h3>
+        		<hr>
+        		<p>
+        			<img src="images/logo_acer.png" /> <div id="dProBrand"></div>
+        			<strong>MPN:</strong> <div id="dProTitle"></div>
+        			<strong>Condición:</strong> <div id="dProStatus"></div>
+        			<span class="note">Precio: $<div id="dProPrice"></div></span>
+        			<p>
+        			<strong>Descripcion:</strong>
+        			<div id="dProDescription"></div>
                 </div>
             </div>
-        </div>
     </body>
 </html>
