@@ -67,7 +67,11 @@ div.ui-radio label{
 	text-align: center;
 }
 
-
+/* para ocultar loading DIV */
+div.hide_comp {
+	display: none;
+	visibility: hidden;
+}
 
 
 

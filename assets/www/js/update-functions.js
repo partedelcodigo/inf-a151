@@ -9,21 +9,19 @@ function checkUpdates() {
 		url:'http://www.codigobase.com/all-brands/getData.php',
         dataType: 'json',
 		success: function( data ) {
-            //--navigator.notification.beep(2);
-            //--navigator.notification.alert("hay nuevos datos");
-
             var empObject = eval('(' + JSON.stringify(data) + ')');
             var empObjectLen = empObject.length;
 
-            console.log("longitud " + empObjectLen);
-            //--console.log("valor: " + empObject);
-
+            console.log("Showing GIF");
+            
+            $("#loading").removeClass('hide_comp');
+            //$("#loading").addClass('show_comp');
 			data2Save = empObject;
 
-			// here 
 			db.transaction( checkPreviousData, errorCB, successCB );
 			db.transaction( populateDB, errorCB, successCB );
-			//db.transaction( queryDB, errorCB );
+			//$("#loading").removeClass('show_comp');
+			//
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
@@ -126,6 +124,8 @@ function populateDB( tx ) {
 		}
 	}
     //bus.filterBrand('');
+	console.log("hidden gif");
+	$("#loading").hide(2000);
 }
 
 var bus={
