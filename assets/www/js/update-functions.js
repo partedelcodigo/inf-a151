@@ -136,12 +136,13 @@ var bus={
     status:'',
     filterBrand:function(category){
         bus.category=category;
+        bus.brand='';
         var sql_c;
         if(category=='')
             sql_c="SELECT brand FROM products GROUP BY brand"
         else
             sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
-        console.log("--->" + sql_c);
+        //console.log("--->" + sql_c);
         db.transaction(function(tx) {
             tx.executeSql(sql_c, [],
                     function(tx, results) {
