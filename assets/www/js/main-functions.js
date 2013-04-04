@@ -3,20 +3,23 @@ var data2Save = new Array();
 var deviceIsOnLine = false;
 var updateChecked = false;
 
-document.addEventListener( "deviceready", function() {
+function onLoad() {
 	document.addEventListener( "online", function() {
 		deviceIsOnLine = true;
 	}, false );
-
+	
 	document.addEventListener( "offline", function() {
 		deviceIsOnLine = false;
 	}, false );
-	
-	if( !updateChecked && useUpdateFunctions ) {
-		checkUpdates();
-		updateChecked = true;
-	}
-} );
+
+	document.addEventListener( "deviceready", function() {
+		if( !updateChecked && useUpdateFunctions ) {
+			checkUpdates();
+			updateChecked = true;
+		}
+	}, false );
+}
+
 //checkUpdates();//gaston
 
 function IsEmail(email) {
@@ -45,23 +48,24 @@ function addslashes(string) {
 }
 
 function enviaContacto() {
+	console.log( 'Device is online: ' + deviceIsOnLine );
 	if( deviceIsOnLine ) {
 		if ($('#txtCName').val() == '') {
-	        alert("Nombre requerido");
+	        navigator.notification.alert("Debe ingresar su nombre", function() {}, "Formulario de Contactos", "Aceptar");
 	        return false;
 	    }
 	    if ($('#txtCMail').val() == '') {
-	        alert("Correo requerido");
+	        navigator.notification.alert("Debe ingresar su correo electr\u00f3nico", function() {}, "Formulario de Contactos", "Aceptar");
 	        return false;
 	    } else {
 	        if (IsEmail($('#txtCMail').val()) === false) {
-	            alert("Correo Formato invalido");
+	            navigator.notification.alert("Debe ingresar una direcci\u00f3n de correo electr\u00f3nico v\u00e1lida", function() {}, "Formulario de Contactos", "Aceptar");
 	            return false;
 	        }
 
 	    }
 	    if ($('#txtCMsg').val() == '') {
-	        alert("Comentario requerido");
+	        navigator.notification.alert("debe ingresar su comentario", function() {}, "Formulario de Contactos", "Aceptar");
 	        return false;
 	    }
 	    $.ajax({

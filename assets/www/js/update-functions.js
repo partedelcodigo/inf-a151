@@ -125,7 +125,7 @@ function populateDB( tx ) {
 	}
     //bus.filterBrand('');
 	console.log("hidden gif");
-	$("#loading").hide(2000);
+	$("#loading").hide();
 }
 
 var bus={

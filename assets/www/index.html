@@ -18,13 +18,15 @@
         <script src="js/main-functions.js" type="text/javascript" charset="utf-8"></script>
     </head>
 
-    <body>
+    <body onload="onLoad()">
         <div id="page_index" data-role="page">
             <div data-role="content" class="content_home">
                 <img src="images/company-logo.png" />
                 <h1>AllbrandsUSA</h1>
                 <p>Entregando el futuro en sus manos</p>
-                <div id="loading" class="hide_comp">Cargando...</div>
+                <div id="loading" class="hide_comp">
+                	<img src="images/loading.gif" />
+                </div>
             </div><!-- /content_home -->
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
