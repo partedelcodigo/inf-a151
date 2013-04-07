@@ -41,7 +41,7 @@ function addslashes(string) {
         replace(/\f/g, '\\f').
         replace(/\r/g, '\\r').
         replace(/'/g, '-').
-        replace(/"/g, '-');
+        replace(/"/g, '"');
     
     /*replace(/'/g, '\\\'').
     replace(/"/g, '\\"');*/
@@ -65,7 +65,7 @@ function enviaContacto() {
 
 	    }
 	    if ($('#txtCMsg').val() == '') {
-	        navigator.notification.alert("debe ingresar su comentario", function() {}, "Formulario de Contactos", "Aceptar");
+	        navigator.notification.alert("Debe ingresar su comentario", function() {}, "Formulario de Contactos", "Aceptar");
 	        return false;
 	    }
 	    $.ajax({
@@ -76,16 +76,18 @@ function enviaContacto() {
 	    }).done(function(msg) {
 	        //alert(msg);
 	        if (msg.has_sent == 'ok') {
-	            alert("Mensaje Enviado");
+	            navigator.notification.alert("Mensaje enviado satisfactoriamente", function() {
+	            	window.location.href = "index.html";
+	            }, "Formulario de Contactos", "Aceptar");
 	        }
 	        else {
-	            alert("Mensaje No Enviado, intente mas tarde");
+	        	navigator.notification.alert("No se pudo enviar el mensaje, intente m\u00e1s tarde por favor", function() {}, "Formulario de Contactos", "Aceptar");
 	        }
 
 	    });
 	    return false;
 	}
 	else {
-		navigator.notification.alert("Necesita tener conecci\u00f3n a Internet para realizar el envio del fomulario.", function() {}, "Formulario de Contactos", "Aceptar");
+		navigator.notification.alert("Necesita tener conecci\u00f3n a Internet para realizar el env\u00edo del fomulario.", function() {}, "Formulario de Contactos", "Aceptar");
 	}
 }

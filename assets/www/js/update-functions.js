@@ -243,7 +243,7 @@ dBhtml='';
                                 var sig = (pag + 1);
                                 if ((sig * 10) < bus.tot)
                                     //dBhtmlMas = '<input type="button" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');" value="Ver Mas" />';
-                                    dBhtmlMas = '<br><a id="btnMore" data-role="button" href="#" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');">Ver Mas</a>';
+                                    dBhtmlMas = '<br><a id="btnMore" data-role="button" href="#" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');">ver m&aacute;s</a>';
                                 }
                         } else {
                             //console.log("--->limpiar");
