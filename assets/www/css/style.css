@@ -72,8 +72,27 @@ div.hide_comp {
 	display: none;
 	visibility: hidden;
 }
-
-
+/* para segundo header DIV */
+.second_menu{
+	text-align: center;
+	padding: 0 5px;
+}
+.second_menu a.icon_left{
+	float: left;
+}
+.second_menu a.icon_right{
+	float: right;
+}
+.second_menu h3{
+	display: inline-block;
+	margin: 7px 0;
+}
+.second_menu h3.single_export{
+	margin-left:-60px;
+}
+.clear{
+	clear: both;
+}
 
 
 

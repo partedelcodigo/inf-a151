@@ -26,13 +26,22 @@
 
     <body onload="onLoad()">
         <div id="page_list_companies" data-role="page">
+
             <div data-role="header" data-position="fixed" data-theme="f">
-                <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+                <a data-role="button" href="#" data-icon="arrow-l" data-iconpos="left">Phone</a>
+                <h2>AllbrandsUSA APP</h2>
+                <a data-role="button" href="#" data-icon="arrow-3" data-iconpos="right">Email</a>
+                <hr>
+                <div class="second_menu">
+                <a class="icon_left" data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
                 <h3>Inventario</h3>
-                <a data-role="button" href="#page_list_products" onclick="bus.filterProduct('All',0);" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+                <a class="icon_right" data-role="button" href="#page_list_products" onclick="bus.filterProduct('All',0);" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+                </div>
             </div><!-- /header -->
+
             <div data-role="content" class="content_page">
-                <div id="r_cat" data-role="fieldcontain">
+                
+                <div id="r_cat" data-role="fieldcontain" >
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <legend>
                             Categorías:
