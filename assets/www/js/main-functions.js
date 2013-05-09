@@ -10,10 +10,11 @@ function onLoad() {
 	
 	document.addEventListener( "offline", function() {
 		deviceIsOnLine = false;
+		alert(getDbVersion());
 	}, false );
 
 	document.addEventListener( "deviceready", function() {
-		if( !updateChecked && useUpdateFunctions ) {
+		if( !updateChecked && useUpdateFunctions && deviceIsOnLine ) {
 			checkUpdates();
 			updateChecked = true;
 		}

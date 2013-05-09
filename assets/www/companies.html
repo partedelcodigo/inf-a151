@@ -29,7 +29,7 @@
 
             <div data-role="header" data-position="fixed" data-theme="f">
                 <a data-role="button" href="#" data-icon="arrow-l" data-iconpos="left">Phone</a>
-                <h2>AllbrandsUSA APP</h2>
+                <h2>AllbrandsUSA</h2>
                 <a data-role="button" href="#" data-icon="arrow-3" data-iconpos="right">Email</a>
                 <hr>
                 <div class="second_menu">
@@ -74,8 +74,15 @@
         </div><!-- /page_index -->
         <div id="page_list_products" data-role="page">
             <div data-role="header" data-position="fixed">
-                <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
-                <h3>Productos</h3>
+            	<a data-role="button" href="#" data-icon="arrow-l" data-iconpos="left">Phone</a>
+                <h2>AllbrandsUSA</h2>
+                <a data-role="button" href="#" data-icon="arrow-3" data-iconpos="right">Email</a>
+                <hr>
+                <div class="second_menu">
+                	<a class="icon_left" data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+                	<h3>Productos</h3>
+                	<a class="icon_right" data-role="button" href="#page_list_products" onclick="bus.filterProduct('All',0);" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+                </div>
             </div><!-- /header -->
             <div data-role="content" class="content_page">
                 <div id="r_status" data-role="fieldcontain">
@@ -96,7 +103,7 @@
                             Refurbished
                         </label>
                     </fieldset>
-                </div>
+                </div><br />
                 <ul id="ul_products" data-role="listview" data-divider-theme="d">
                 </ul>
                 <div id="div_mas"></div>
@@ -113,8 +120,15 @@
         </div><!-- /page_index -->
         <div data-role="page" id="page_detail_products">
             <div data-role="header" data-position="fixed">
-                <a data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
-                <h3>Producto</h3>
+            	<a data-role="button" href="#" data-icon="arrow-l" data-iconpos="left">Phone</a>
+                <h2>AllbrandsUSA</h2>
+                <a data-role="button" href="#" data-icon="arrow-3" data-iconpos="right">Email</a>
+                <hr>
+                <div class="second_menu">
+                	<a class="icon_left" data-role="button" data-rel="back" data-transition="fade" href="#" data-icon="arrow-l" data-iconpos="left">Atras</a>
+                	<h3>Producto</h3>
+                	<a class="icon_right" data-role="button" href="#page_list_products" onclick="bus.filterProduct('All',0);" data-transition="fade" data-icon="arrow-3" data-iconpos="right">Filtrar</a>
+                </div>
             </div><!-- /header -->
             <div data-role="content" id="content_detail">
                 <h3>Tipo de producto: <span id="dCategory"></span></h3>
