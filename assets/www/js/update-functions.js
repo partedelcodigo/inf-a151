@@ -5,6 +5,19 @@ var tableCategoriesExists = false;
 
 db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );
 function checkUpdates() {
+	$.ajax({
+		url:'http://www.codigobase.com/all-brands/getVersion.php',
+		dataType: 'json',
+		success: function( data ) {
+            var currentVersion = data;
+            alert("version " + currentVersion);
+        },
+		error: function( data ) {
+            //navigator.notification.alert("hubo un error");
+			console.log("There is no Internet conecction");
+        }
+	});
+	
     $.ajax({
 		url:'http://www.codigobase.com/all-brands/getData.php',
         dataType: 'json',
@@ -22,12 +35,27 @@ function checkUpdates() {
 			db.transaction( populateDB, errorCB, successCB );
 			//$("#loading").removeClass('show_comp');
 			//
+			
+			updateDBVersion(  );
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
 			console.log("There is no Internet conecction");
         }
     });
+}
+
+function updateDBVersion( version ) {
+	localStorage.setItem("version", version);
+}
+
+function getDbVersion() {
+	try {
+		return localStorage.getItem( "version" );
+	}
+	catch (e) {
+		return 0;
+	}
 }
 
 function checkPreviousData( tx ) {
