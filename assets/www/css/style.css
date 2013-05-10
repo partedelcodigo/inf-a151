@@ -94,5 +94,17 @@ div.hide_comp {
 	clear: both;
 }
 
+.ui-btn-up-f{
+	border: 1px solid #237aa0;
+}
+
+/* Botones personalizados */
+.ui-icon-phone { 
+    background: url("../images/icon_telephone.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+.ui-icon-email_1 { 
+    background: url("../images/icon_email.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+
 
 
