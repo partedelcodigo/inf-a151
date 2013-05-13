@@ -5,20 +5,31 @@ var tableCategoriesExists = false;
 
 db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );
 function checkUpdates() {
+	$("#version_message").html("Verificando la versión de base de datos...");
 	$.ajax({
 		url:'http://www.codigobase.com/all-brands/getVersion.php',
 		dataType: 'json',
 		success: function( data ) {
             var currentVersion = data;
-            alert("version " + currentVersion);
+            //currentVersion = 1263353305;
+            var localVersion = getDbVersion();
+            
+            console.log("current v " + currentVersion + " local v " + localVersion);
+            if( currentVersion > localVersion ) {
+            	console.log("updating database");
+            	updateDBData( currentVersion );
+            }
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
 			console.log("There is no Internet conecction");
+			console.log("Dont found version");
         }
 	});
-	
-    $.ajax({
+}
+
+function updateDBData( newDBVersion ) {
+	$.ajax({
 		url:'http://www.codigobase.com/all-brands/getData.php',
         dataType: 'json',
 		success: function( data ) {
@@ -34,9 +45,8 @@ function checkUpdates() {
 			db.transaction( checkPreviousData, errorCB, successCB );
 			db.transaction( populateDB, errorCB, successCB );
 			//$("#loading").removeClass('show_comp');
-			//
 			
-			updateDBVersion(  );
+			updateDBVersion( newDBVersion );
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
@@ -51,7 +61,11 @@ function updateDBVersion( version ) {
 
 function getDbVersion() {
 	try {
-		return localStorage.getItem( "version" );
+		console.log("version " + localStorage.getItem( "version" ));
+		if( localStorage.getItem( "version" ) == "undefined" || localStorage.getItem( "version" ) == null )
+			return 0;
+		else
+			return localStorage.getItem( "version" );
 	}
 	catch (e) {
 		return 0;
@@ -107,6 +121,8 @@ function populateDB( tx ) {
 	console.log( "table products: " + tableProductsExists + "--" );
 	if( !tableProductsExists ) {
 		console.log("starting create tables");	
+		var deleteTable = "DROP TABLE IF EXISTS products";
+		tx.executeSql( deleteTable );
 		var createTable = "CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT NOT NULL,description BLOB NULL,	price REAL NULL,brand TEXT NULL,category TEXT NULL,status TEXT NULL)";
 		tx.executeSql( createTable );
 		
@@ -167,10 +183,10 @@ var bus={
         bus.brand='';
         var sql_c;
         if(category=='')
-            sql_c="SELECT brand FROM products GROUP BY brand"
+            sql_c="SELECT brand FROM products GROUP BY brand ORDER BY brand"
         else
-            sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand"
-        //console.log("--->" + sql_c);
+            sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand ORDER BY brand ASC"
+        console.log("--->" + sql_c);
         db.transaction(function(tx) {
             tx.executeSql(sql_c, [],
                     function(tx, results) {
@@ -185,7 +201,7 @@ var bus={
                                     if(data2SaveCat[j]['title']==results.rows.item(i).brand)
                                         image=data2SaveCat[j]['image'];
                                 }*/
-                                //console.log("-marca-->" + results.rows.item(i).brand);
+                                console.log("-marca-->" + results.rows.item(i).brand);
                                 image=data2SaveCatName[''+results.rows.item(i).brand].image;
                                 if (c == 1) {
                                     type = 'a';
@@ -226,7 +242,7 @@ var bus={
         }
         bus.status=status;
             
-        sql_p+=" ORDER BY brand";
+        sql_p+=" ORDER BY id";
         if(pag==0)
             sql_c=sql_p_1+sql_p;
         sql_p+=" LIMIT "+pag+", 10";
@@ -253,7 +269,7 @@ dBhtml='';
         }
             
         db.transaction(function(tx) {
-            //console.log("-p-->" + sql_p);
+            console.log("-p-->" + sql_p);
             tx.executeSql(sql_p, [],
                     function(tx, results) {
                         var len = results.rows.length, i, dBhtmlMas, image, pro;
@@ -309,8 +325,9 @@ dBhtml='';
                             logos[2] = new Array('HP', 'logo_hp.png');
                             logos[3] = new Array('Samsung', 'logo_samsung.png');
                             logos[4] = new Array('Sony', 'logo_sony.png');
-                            logos[5] = new Array('Toshiba', 'logo_toshiba.png');
-                            logos[6] = new Array('Acer', 'logo_acer.png');
+                            logos[5] = new Array('Dell', 'logo_dell.png');
+                            logos[6] = new Array('Toshiba', 'logo_toshiba.png');
+                            logos[7] = new Array('Acer', 'logo_acer.png');
                             
                             for( var l = 0; l < logos.length; l++ ) {
                             	if( logos[l][0] == pro.brand ){
@@ -347,6 +364,7 @@ function populateCategory( tx ) {
     data2SaveCat.push({title:"HP",description:"",image:"logo_hp.png"});
     data2SaveCat.push({title:"Samsung",description:"",image:"logo_samsung.png"});
     data2SaveCat.push({title:"Sony",description:"",image:"logo_sony.png"});
+    data2SaveCat.push({title:"Dell",description:"",image:"logo_dell.png"});
     data2SaveCat.push({title:"Toshiba",description:"",image:"logo_toshiba.png"});
     data2SaveCat.push({title:"Acer",description:"",image:"logo_acer.png"});
     for( var i = 0; i < data2SaveCat.length; i++ ) {
