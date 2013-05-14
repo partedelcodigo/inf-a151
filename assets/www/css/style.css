@@ -106,5 +106,10 @@ div.hide_comp {
     background: url("../images/icon_email.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
 }
 
-
+/* Espaciado para orietacion apaizada */
+@media (min-width: 450px){
+	.ui-field-contain label.ui-input-text{
+		width: 25%;
+	}
+}
 
