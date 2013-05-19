@@ -10,7 +10,7 @@ function onLoad() {
 	
 	document.addEventListener( "offline", function() {
 		deviceIsOnLine = false;
-		alert(getDbVersion());
+		//--alert(getDbVersion());
 	}, false );
 
 	document.addEventListener( "deviceready", function() {
@@ -21,7 +21,6 @@ function onLoad() {
 	}, false );
 }
 
-//checkUpdates();//gaston
 
 function IsEmail(email) {
 	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -46,6 +45,14 @@ function addslashes(string) {
     
     /*replace(/'/g, '\\\'').
     replace(/"/g, '\\"');*/
+}
+
+function send2Page( page ) {
+	window.location.href=page;
+}
+
+function redirecciona( pageName, time ) {
+	window.setTimeout( "send2Page('"+ pageName +"')", time);
 }
 
 function enviaContacto() {

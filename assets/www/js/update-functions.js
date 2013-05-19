@@ -4,8 +4,9 @@ var tableProductsExists = false;
 var tableCategoriesExists = false;
 
 db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );
+
 function checkUpdates() {
-	$("#version_message").html("Verificando la versión de base de datos...");
+	$("#version_message").html("Verificando la versi&oacute;n...");
 	$.ajax({
 		url:'http://www.codigobase.com/all-brands/getVersion.php',
 		dataType: 'json',
@@ -18,6 +19,9 @@ function checkUpdates() {
             if( currentVersion > localVersion ) {
             	console.log("updating database");
             	updateDBData( currentVersion );
+            }
+            else {
+            	$("#version_message").html("Versi&oacute;n actualizada");
             }
         },
 		error: function( data ) {
@@ -38,13 +42,16 @@ function updateDBData( newDBVersion ) {
 
             console.log("Showing GIF");
             
-            $("#loading").removeClass('hide_comp');
+            //$("#loading").removeClass('hide_comp');
             //$("#loading").addClass('show_comp');
 			data2Save = empObject;
 
 			db.transaction( checkPreviousData, errorCB, successCB );
 			db.transaction( populateDB, errorCB, successCB );
+			
 			//$("#loading").removeClass('show_comp');
+			$("#version_message").html("Base de datos actualizada");
+			redirecciona( "companies.html", 500);
 			
 			updateDBVersion( newDBVersion );
         },
@@ -168,8 +175,9 @@ function populateDB( tx ) {
 		}
 	}
     //bus.filterBrand('');
-	console.log("hidden gif");
-	$("#loading").hide();
+	
+	/*console.log("hidden gif");
+	$("#loading").hide();*/
 }
 
 var bus={
