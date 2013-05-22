@@ -31,6 +31,7 @@ $(document).on("mobileinit", function() {
 	//apply overrides here
     $.mobile.allowCrossDomainPages = true;
     $.support.cors = true;
+    $.mobile.defaultPageTransition = 'none';
 });
 
 function addslashes(string) {
