@@ -105,6 +105,21 @@ div.hide_comp {
 .ui-icon-email_1 { 
     background: url("../images/icon_email.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
 }
+.ui-icon-atras { 
+    background: url("../images/icon_back.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+.ui-icon-inventario { 
+    background: url("../images/icon_inventario.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+.ui-icon-exportar { 
+    background: url("../images/icon_export.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+.ui-icon-contacto { 
+    background: url("../images/icon_contacto.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
+
+
+
 
 /* Espaciado para orietacion apaizada */
 @media (min-width: 450px){
