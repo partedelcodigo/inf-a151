@@ -117,8 +117,9 @@ div.hide_comp {
 .ui-icon-contacto { 
     background: url("../images/icon_contacto.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
 }
-
-
+.ui-icon-filtrar { 
+    background: url("../images/icon_filtrar.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
+}
 
 
 /* Espaciado para orietacion apaizada */
