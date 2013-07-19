@@ -22,6 +22,7 @@ function checkUpdates() {
             }
             else {
             	$("#version_message").html("Versi&oacute;n actualizada");
+            	redirecciona( "companies.html", 500);
             }
         },
 		error: function( data ) {

@@ -45,9 +45,9 @@
                 <div id="r_cat" data-role="fieldcontain" >
                     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                         <legend>
-                            Categorías:
+                            Chose your Product:
                         </legend>
-                        <input id="radio1" name="" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
+                        <input id="radio1" name="" checked="checked" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
                         <label for="radio1">
                             Laptops
                         </label>
@@ -61,16 +61,23 @@
                         </label>
                     </fieldset>
                 </div>
-                <div id="div_brand" class="ui-grid-b">Seleccione una categoría</div>
+                <div id="div_brand" class="ui-grid-b">Chose your Product:</div>
             </div><!-- /content_page -->
             <div data-role="footer" data-position="fixed" data-theme="f">
-                <div data-role="navbar" data-iconpos="top">
-                    <ul>
-                        <li><a href="about.html" data-url="about.html" rel="external" data-icon="about">About Us</a></li>
-                        <li><a href="export.html" data-url="export.html" rel="external" data-icon="exportar">Export</a></li>
-                        <li><a href="companies.html" data-url="companies.html" rel="external" data-icon="inventario">Partners</a></li>
-                    </ul>        
-                </div>
+                    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                        <input id="radio1" name="" checked="checked" value="Laptops" type="radio" onclick="bus.filterBrand(this.value);">
+                        <label for="radio1">
+                            All
+                        </label>
+                        <input id="radio2" name="" value="Electronics" type="radio" onclick="bus.filterBrand(this.value);">
+                        <label for="radio2">
+                            Refurbished
+                        </label>
+                        <input id="radio3" name="" value="Others" type="radio" onclick="bus.filterBrand(this.value);">
+                        <label for="radio3">
+                            New
+                        </label>
+                    </fieldset>        
             </div><!-- /footer -->
         </div><!-- /page_index -->
         <div id="page_list_products" data-role="page">
@@ -148,9 +155,9 @@
             <div data-role="footer" data-position="fixed" data-theme="f">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
-                        <li><a href="about.html" data-url="about.html" rel="external" data-icon="about">About Us</a></li>
-                        <li><a href="export.html" data-url="export.html" rel="external" data-icon="exportar">Export</a></li>
-                        <li><a href="companies.html" data-url="companies.html" rel="external" data-icon="inventario">Partners</a></li>
+                        <li><a href="about.html" data-url="about.html" rel="external">All</a></li>
+                        <li><a href="export.html" data-url="export.html" rel="external">Refurbished</a></li>
+                        <li><a href="companies.html" data-url="companies.html" rel="external">New</a></li>
                     </ul>        
                 </div>
             </div><!-- /footer -->
