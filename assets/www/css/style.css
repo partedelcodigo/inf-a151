@@ -108,6 +108,11 @@ h2.ui-title{
 }
 
 /* Botones personalizados */
+/* Productos en companies */
+.products{
+	padding:0px 5px 5px;
+}
+
 .ui-icon-phone { 
     background: url("../images/icon_telephone2.png") no-repeat rgba(0, 0, 0, 0.4) !important; 
 }
