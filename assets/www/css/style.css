@@ -110,7 +110,16 @@ h2.ui-title{
 /* Botones personalizados */
 /* Productos en companies */
 .products{
-	padding:0px 5px 5px;
+	/*padding:0px 5px 5px;*/
+}
+.products p{
+	margin:0px;
+	padding: 3px;
+	font-size: 14px;
+	text-align: center;
+	background-color: #fff;
+	color: #494949;
+	text-shadow:none; 
 }
 
 .ui-icon-phone { 
