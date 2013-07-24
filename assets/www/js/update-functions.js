@@ -6,7 +6,8 @@ var tableCategoriesExists = false;
 db = window.openDatabase( "all-brands", "1.0", "all-brands", 700000 );
 
 function checkUpdates() {
-	$("#version_message").html("Verificando la versi&oacute;n...");
+	//--$("#version_message").html("Verificando la versi&oacute;n...");
+	$("#version_message").html("Checking current version...");
 	$.ajax({
 		url:'http://www.codigobase.com/all-brands/getVersion.php',
 		dataType: 'json',
@@ -22,6 +23,7 @@ function checkUpdates() {
             }
             else {
             	$("#version_message").html("Versi&oacute;n actualizada");
+            	$("#version_message").html("Version up to date");
             	redirecciona( "companies.html", 500);
             }
         },
@@ -51,14 +53,15 @@ function updateDBData( newDBVersion ) {
 			db.transaction( populateDB, errorCB, successCB );
 			
 			//$("#loading").removeClass('show_comp');
-			$("#version_message").html("Base de datos actualizada");
+			//--$("#version_message").html("Base de datos actualizada");
+			$("#version_message").html("Database up to date");
 			redirecciona( "companies.html", 500);
 			
 			updateDBVersion( newDBVersion );
         },
 		error: function( data ) {
             //navigator.notification.alert("hubo un error");
-			console.log("There is no Internet conecction");
+			console.log("There is no Internet Connection");
         }
     });
 }
@@ -182,7 +185,7 @@ function populateDB( tx ) {
 }
 
 var bus={
-    category:'',
+    category:'Laptops',
     brand:'',
     //page:0,
     tot:0,
@@ -190,17 +193,26 @@ var bus={
     filterBrand:function(category){
         bus.category=category;
         bus.brand='';
+        var lStatusFilter = '';
         var sql_c;
-        if(category=='')
-            sql_c="SELECT brand FROM products GROUP BY brand ORDER BY brand"
-        else
-            sql_c="SELECT brand FROM products WHERE category='"+category+"' GROUP BY brand ORDER BY brand ASC"
+        
+        if( bus.status != "" && bus.status != "All" ) {
+        	lStatusFilter = " AND status='" + bus.status + "' ";
+        }
+        
+        if(category=='' )
+            sql_c="SELECT brand FROM products GROUP BY brand ORDER BY brand";
+        else 
+            sql_c="SELECT brand FROM products WHERE category='"+category+"'" + lStatusFilter + "GROUP BY brand ORDER BY brand ASC";
+        
+        
+        
         console.log("--->" + sql_c);
         db.transaction(function(tx) {
             tx.executeSql(sql_c, [],
                     function(tx, results) {
                         var len = results.rows.length, i,j,dBhtml,c,image;
-                        if (len > 1) {
+                        if (len > 0) {
                             //console.log("--->crear listado");
                             dBhtml='';
                             c=1;
@@ -221,7 +233,10 @@ var bus={
                                         type = 'c';
                                     }
                                 }
-                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
+                                
+                                //--dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
+                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="bus.setBrand(\'' + results.rows.item(i).brand + '\');$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
+                                
                                 //--dBhtml+='<div class="ui-block-'+type+'"><img src="images/'+image+'" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'" /></div>';
                                 c++;
                                 if(c==4){
@@ -229,13 +244,53 @@ var bus={
                                 }
                             }
                         } else {
-                           // console.log("--->limpiar");
                             dBhtml='';
+                            console.log( "There are no results found" );
                         }
+                        
                         $('#div_brand').html(dBhtml);
                     }
             );
         });        
+    },
+    showMenu: function() {
+    	bus.category = 'Laptops';
+    	bus.brand = '';
+    	bus.page = 0;
+    	bus.tot = 0;
+    	bus.status = '';
+    	$.mobile.changePage( "#page_list_companies" );
+    	bus.filterBrand2();
+    },
+    setCategory: function( lCategory ) {
+    	//--$.mobile.changePage( "#page_list_products" );
+    	bus.category = lCategory;
+    	bus.filterBrand2();
+    },
+    setCategoryDetail: function( lCategory ) {
+    	bus.category = lCategory;
+    	console.log( "el valor de brand" + bus.brand );
+    	bus.filterItem( 0 );
+    },
+    setStatus: function( lStatus ) {
+    	bus.status = lStatus;
+    	bus.filterBrand2();
+    },
+    setStatusDetail: function( lStatus ) {
+    	bus.status = lStatus;
+    	console.log( "el valor de brand" + bus.brand );
+    	bus.filterItem( 0 );
+    },
+    filterBrand2: function() {
+    	bus.filterBrand( bus.category );
+    },
+    filterItem: function( page ) {
+    	bus.filterProduct( bus.status, page );
+    },
+    setBrand: function( brand ) {
+    	bus.brand = brand;
+    	$.mobile.changePage( "#page_list_products" );
+    	bus.filterProduct( bus.status, 0 );
     },
     filterProduct:function(status,pag){
         var sql_p,sql_p_0,sql_p_1,sql_c;
@@ -246,7 +301,7 @@ var bus={
             sql_p+=" AND category='"+bus.category+"'";
         if(bus.brand!='')
             sql_p+=" AND brand='"+bus.brand+"'";
-        if(status!='All'){
+        if(status!='All' && status!='' ){
             sql_p+=" AND status='"+status+"'";
         }
         bus.status=status;
@@ -268,10 +323,10 @@ dBhtml='';
                         $('#ul_products').html('');
                         if (results.rows.length == 1) {
                             bus.tot=results.rows.item(0)['TOT'];
-                            dBhtml='<li data-role="list-divider">'+bus.tot + ' productos encontrados.</li>';
+                            dBhtml='<li data-role="list-divider">'+bus.tot + ' products found.</li>';
                         }
                         else{
-                            dBhtml='<li data-role="list-divider">NO EXISTEN productos encontrados.</li>';
+                            dBhtml='<li data-role="list-divider">There are no results found.</li>';
                         }
                     });
             });     
@@ -291,8 +346,8 @@ dBhtml='';
                                 dBhtml += '<li><a href="#page_detail_products" onclick="bus.detailProduct('+pro.id+')"><img src="images/' + image + '"/>';
                                 dBhtml += '<h2>' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
-                                dBhtml += '<br /><strong>Condicion: </strong>' + pro.status;
-                                dBhtml += '<br /><span class="note">Precio: $' + pro.price + '</span></p></a></li>';
+                                dBhtml += '<br /><strong>Condition: </strong>' + pro.status;
+                                dBhtml += '<br /><span class="note">Price: $' + pro.price + '</span></p></a></li>';
                                 var sig = (pag + 1);
                                 if ((sig * 10) < bus.tot)
                                     //dBhtmlMas = '<input type="button" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');" value="Ver Mas" />';
@@ -302,8 +357,9 @@ dBhtml='';
                             //console.log("--->limpiar");
                             dBhtml = '';
                         }
-                        $('#ul_products').html($('#ul_products').html()+dBhtml);
-                        $("#ul_products").listview('refresh');
+                        //$('#ul_products').html($('#ul_products').html()+dBhtml);
+                        $('#ul_products').append( dBhtml ).listview( 'refresh' );
+                        //$("#ul_products").listview('refresh');
                         $('#div_mas').html(dBhtmlMas);
                         if(dBhtmlMas!=''){
                             $('#btnMore').button();
@@ -311,10 +367,6 @@ dBhtml='';
                         }
                     });
         });
-        
-            
-                        
-       
     },
     detailProduct:function(id){
         console.log("--id->" + id);

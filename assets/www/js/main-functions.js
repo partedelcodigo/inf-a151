@@ -17,6 +17,7 @@ function onLoad() {
 		if( !updateChecked && useUpdateFunctions && deviceIsOnLine ) {
 			checkUpdates();
 			updateChecked = true;
+			$.mobile.defaultPageTransition = "none";
 		}
 	}, false );
 }
@@ -29,9 +30,10 @@ function IsEmail(email) {
 
 $(document).on("mobileinit", function() {
 	//apply overrides here
+	console.log( "entro aqui" );
     $.mobile.allowCrossDomainPages = true;
     $.support.cors = true;
-    $.mobile.defaultPageTransition = 'none';
+    $.mobile.defaultPageTransition = $.mobile.defaultDialogTransition = "none";
 });
 
 function addslashes(string) {

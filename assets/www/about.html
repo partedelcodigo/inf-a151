@@ -1,48 +1,38 @@
 <!DOCTYPE html>
-<!--
-/**
- * Appcropolis Template: basic-jqm-about-page 
- * @copy Appcropolis LLC (c) 2012. All rights reserved.
- * @author Raul Sanchez (support@appcropolis.com)
- * @date 2012-09-30
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
- * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
- * SOFTWARE.
- *
- * License and legal information: 
- *
- * http://appcropolis.com/license
- * http://appcropolis.com/terms-of-service
- * http://appcropolis.com/privacy
- */ -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="js/jquery.mobile/jquery.mobile-1.1.1.min.css"/>
-        <script src="js/jquery.mobile/jquery-1.7.1.min.js"></script>
-        <script src="js/jquery.mobile/jquery.mobile-1.1.1.min.js"></script>
-        <title>About Us | AllbrandsUSA</title>
-    </head>
+	<head>
+		<meta charset="utf-8">
+		<title>About Us - AllbrandsUSA</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script type="text/javascript" src="js/cordova-2.4.0.js"></script>
+		<link rel="stylesheet" href="js/jquery.mobile/jquery.mobile-1.1.1.min.css"/>
+		<link rel="stylesheet" href="js/jquery.mobile/allBrandsUSA.css"/>
+		<link rel="stylesheet" href="css/style.css"/>
+
+		<script src="js/jquery.mobile/jquery-1.7.1.min.js"></script>
+		<script src="js/jquery.mobile/jquery.mobile-1.1.1.min.js"></script>
+		<script type="text/javascript">
+			var useUpdateFunctions = false;
+			var executeFilters = false;
+		</script>
+		<script src="js/main-functions.js" type="text/javascript" charset="utf-8"></script>
+	</head>
     <body onload="onLoad()">
 
         <!-- basic-jqm-about-page -->
         <div data-role="page" id="basic-jqm-about-page"><!-- page -->
-            <div data-theme="a" data-role="header" data-position="fixed"><!-- header -->
-                <a data-role="button" data-rel="back" data-transition="fade" href="#page7" data-icon="arrow-l" data-iconpos="left">
-                    Back
-                </a>
-                <h3>
-                    About
-                </h3>
-            </div><!-- /header -->
+            <div data-role="header" data-position="fixed" data-theme="f">
+	            <div class="sub-header" data-role="header"  data-theme="g">
+	                <a href="contact.html" data-role="button" data-icon="contacto" data-iconpos="left">Contact</a>
+	                    <h2>AllbrandsUSA</h2>
+	                <a data-role="button" href="mailto:armando@allbrandsusa.com" data-icon="email_1" data-iconpos="right">Email</a>
+	            </div>
+	            <div class="second_menu">
+	            <a class="icon_left" data-role="button" data-rel="back" data-transition="fade" href="javascript:history.back(1)" data-icon="atras" data-iconpos="left">Menu</a>
+	                <h3>About Us</h3>
+	            <a class="icon_right" data-role="button" href="tel:8883220925" data-icon="phone" data-iconpos="right">Phone</a>
+	            </div>
+	        </div><!-- /header -->
             <div data-role="content"><!-- content -->
                 <h2>About Us</h2>
                 <div><p>OUR PHILOSOPHY, SIMPLY STATED, IS TO CONTINUE DOING WHAT HAS MADE HAS THE TRUSTED
@@ -63,35 +53,13 @@ LEADER IN DELIVERING THE FUTURE TO YOUR HANDS FOR OVER 20 YEARS.</p></div>
                 </div>
                 
             </div><!-- /content -->
-            <div data-theme="a" data-role="footer" data-position="fixed"><!-- footer -->
+            <div data-role="footer" data-position="fixed" data-theme="f">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
-                        <li>
-                            <a href="#" data-theme="" data-icon="home">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-theme="" data-icon="info" class="ui-btn-active ui-state-persist">
-                                Inventory
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-theme="" data-icon="star">
-                                Export
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-theme="" data-icon="grid">
-                                Contact
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-theme="" data-icon="plus">
-                                More
-                            </a>
-                        </li>
-                    </ul>
+                        <li><a href="about.html" data-url="about.html" rel="external" data-icon="about">About Us</a></li>
+                        <li><a href="export.html" data-url="export.html" rel="external" data-icon="exportar">Export</a></li>
+                        <li><a href="companies.html" data-url="companies.html" rel="external" data-icon="inventario">Partners</a></li>
+                    </ul>        
                 </div>
             </div><!-- /footer -->
         </div><!-- /page -->
