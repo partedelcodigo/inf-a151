@@ -235,7 +235,7 @@ var bus={
                                 }
                                 
                                 //--dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
-                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" onclick="bus.setBrand(\'' + results.rows.item(i).brand + '\');$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
+                                dBhtml+='<div class="ui-block-'+type+'"><a href="#" data-transition="none" onclick="bus.setBrand(\'' + results.rows.item(i).brand + '\');$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'"><img src="images/'+image+'" /></a></div>';
                                 
                                 //--dBhtml+='<div class="ui-block-'+type+'"><img src="images/'+image+'" onclick="$(\'#div_brand a\').removeClass(\'selected\');$(this).addClass(\'selected\');bus.brand=\''+results.rows.item(i).brand+'\'" /></div>';
                                 c++;
@@ -259,8 +259,19 @@ var bus={
     	bus.page = 0;
     	bus.tot = 0;
     	bus.status = '';
-    	$.mobile.changePage( "#page_list_companies" );
+    	//--$.mobile.changePage( "#page_list_companies" );
+
+    	$.mobile.changePage( "#page_list_companies", { role: "page"} );
+    	
     	bus.filterBrand2();
+    	
+    	$('.ui-btn-active').removeClass($.mobile.activeBtnClass);
+    	
+    	console.log( "categoria actual " + bus.category );
+    	
+    	$('#lap1').addClass($.mobile.activeBtnClass);
+    	
+    	$('#all1').addClass($.mobile.activeBtnClass);
     },
     setCategory: function( lCategory ) {
     	//--$.mobile.changePage( "#page_list_products" );
@@ -291,6 +302,21 @@ var bus={
     	bus.brand = brand;
     	$.mobile.changePage( "#page_list_products" );
     	bus.filterProduct( bus.status, 0 );
+    	$('.ui-btn-active').removeClass($.mobile.activeBtnClass);
+    	
+    	if( bus.category == 'Laptops' )
+    		$('#lap2').addClass($.mobile.activeBtnClass);
+    	else if( bus.category == 'Electronics' )
+    		$('#elec2').addClass($.mobile.activeBtnClass);
+    	else if( bus.category == 'Others' )
+    		$('#oth2').addClass($.mobile.activeBtnClass);
+    	
+    	if( bus.status == 'All' )
+    		$('#all2').addClass($.mobile.activeBtnClass);
+    	else if( bus.status == 'Refurbished' )
+    		$('#ref2').addClass($.mobile.activeBtnClass);
+    	else if( bus.status == 'New' )
+    		$('#new2').addClass($.mobile.activeBtnClass);
     },
     filterProduct:function(status,pag){
         var sql_p,sql_p_0,sql_p_1,sql_c;
@@ -343,7 +369,7 @@ dBhtml='';
                             for (i = 0; i < len; i++) {
                                 pro = results.rows.item(i);
                                 image=data2SaveCatName[''+pro.brand].image;
-                                dBhtml += '<li><a href="#page_detail_products" onclick="bus.detailProduct('+pro.id+')"><img src="images/' + image + '"/>';
+                                dBhtml += '<li><a href="#page_detail_products" data-transition="none" onclick="bus.detailProduct('+pro.id+')"><img src="images/' + image + '"/>';
                                 dBhtml += '<h2>' + pro.description + '</h2>';
                                 dBhtml += '<p><strong>MPN: </strong>' + pro.title;
                                 dBhtml += '<br /><strong>Condition: </strong>' + pro.status;
@@ -351,7 +377,7 @@ dBhtml='';
                                 var sig = (pag + 1);
                                 if ((sig * 10) < bus.tot)
                                     //dBhtmlMas = '<input type="button" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');" value="Ver Mas" />';
-                                    dBhtmlMas = '<br><a id="btnMore" data-role="button" href="#" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');">ver m&aacute;s</a>';
+                                    dBhtmlMas = '<br><a id="btnMore" data-transition="none" data-role="button" href="javascript:void(0)" onclick="bus.filterProduct(\'' + bus.status + '\',' + sig + ');">ver m&aacute;s</a>';
                                 }
                         } else {
                             //console.log("--->limpiar");
@@ -369,6 +395,7 @@ dBhtml='';
         });
     },
     detailProduct:function(id){
+    	console.log( "dentro el detalle" );
         console.log("--id->" + id);
         var pro,sql_p;
         sql_p="SELECT * FROM products WHERE id="+id;

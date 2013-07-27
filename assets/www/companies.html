@@ -23,6 +23,7 @@
 			    -webkit-animation-timing-function: ease-in-out;
 			    -webkit-animation-duration: 350ms !important;
 			}
+			.ui-page { -webkit-backface-visibility: hidden; } 
         </style>
     </head>
 
@@ -37,8 +38,8 @@
                     <a data-role="button" href="mailto:armando@allbrandsusa.com" data-icon="email_1" data-iconpos="right">Email</a>
                 </div>    
                 <div class="second_menu">
-                <a class="icon_left" data-role="button" data-rel="back" href="#" onclick="bus.showMenu()" data-icon="atras" 
-                	data-transition="fade" data-iconpos="left">Menu</a>
+                <a class="icon_left" data-role="button" href="#" onclick="bus.showMenu()" data-icon="atras" 
+                	data-transition="none" data-iconpos="left">Menu</a>
                     <h3>Inventory</h3>
                 <a class="icon_right" data-role="button" href="tel:8883220925" data-icon="phone" data-iconpos="right">Phone</a>
                 </div>
@@ -48,11 +49,11 @@
                     </p>
                     <ul>
                         <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist" href="#" 
+                        	<a data-theme="c" id="lap1" class="ui-btn-active" href="#" 
                         		onclick="bus.setCategory( 'Laptops' );">Laptops</a>
                         </li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Electronics' );">Electronics</a></li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Others' );">Others</a></li>
+                        <li><a data-theme="c" id="elec1" href="#" onclick="bus.setCategory( 'Electronics' );">Electronics</a></li>
+                        <li><a data-theme="c" id="oth1" href="#" onclick="bus.setCategory( 'Others' );">Others</a></li>
                     </ul>        
                 </div>
             </div><!-- /header -->
@@ -68,7 +69,7 @@
                 <div data-role="navbar">
                     <ul>
                         <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist"
+                        	<a data-theme="c" id="all1" class="ui-btn-active"
                         		href="#" onclick="bus.setStatus('All')">All</a>
                         </li>
                         <li><a href="#" onclick="bus.setStatus('Refurbished')">Refurbished</a></li>
@@ -86,8 +87,8 @@
                     <a data-role="button" href="mailto:armando@allbrandsusa.com" data-icon="email_1" data-iconpos="right">Email</a>
                 </div>    
                 <div class="second_menu">
-                <a class="icon_left" data-role="button" data-rel="back" href="#" onclick="bus.showMenu()" data-icon="atras" 
-                	data-transition="fade" data-iconpos="left">Menu</a>
+                <a class="icon_left" data-role="button" href="#" onclick="bus.showMenu()" data-icon="atras" 
+                	data-transition="none" data-iconpos="left">Menu</a>
                     <h3>Inventory</h3>
                 <a class="icon_right" data-role="button" href="tel:8883220925" data-icon="phone" data-iconpos="right">Phone</a>
                 </div>
@@ -97,11 +98,11 @@
                     </p>
                     <ul>
                         <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist" href="#" 
+                        	<a data-theme="c" id="lap2" class="ui-btn-active" href="#" 
                         		onclick="bus.setCategory( 'Laptops' );">Laptops</a>
                         </li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Electronics' );">Electronics</a></li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Others' );">Others</a></li>
+                        <li><a data-theme="c" id="elec2" href="#" class="" onclick="bus.setCategory( 'Electronics' );">Electronics</a></li>
+                        <li><a data-theme="c" id="oth2" href="#" onclick="bus.setCategory( 'Others' );">Others</a></li>
                     </ul>        
                 </div>
             </div><!-- /header -->
@@ -116,11 +117,11 @@
                 <div data-role="navbar">
                     <ul>
                         <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist"
-                        		href="#" onclick="bus.setStatus('All')">All</a>
+                        	<a data-theme="c" class="ui-btn-active"
+                        		href="#" id="all2" onclick="bus.setStatus('All')">All</a>
                         </li>
-                        <li><a href="#" onclick="bus.setStatus('Refurbished')">Refurbished</a></li>
-                        <li><a href="#" onclick="bus.setStatus('New')">New</a></li>
+                        <li><a href="#" id="ref2" onclick="bus.setStatus('Refurbished')">Refurbished</a></li>
+                        <li><a href="#" id="new2" onclick="bus.setStatus('New')">New</a></li>
                     </ul>        
                 </div>        
             </div><!-- /footer -->
@@ -135,51 +136,25 @@
                     <a data-role="button" href="mailto:armando@allbrandsusa.com" data-icon="email_1" data-iconpos="right">Email</a>
                 </div>    
                 <div class="second_menu">
-                <a class="icon_left" data-role="button" data-rel="back" href="#" onclick="bus.showMenu()" data-icon="atras" 
-                	data-transition="fade" data-iconpos="left">Menu</a>
+                <a class="icon_left" data-role="button" href="#" onclick="bus.showMenu(); return false" 
+                	data-icon="atras" data-transition="none" data-iconpos="left">Menu</a>
                     <h3>Inventory</h3>
                 <a class="icon_right" data-role="button" href="tel:8883220925" data-icon="phone" data-iconpos="right">Phone</a>
-                </div>
-                <div class="products" data-role="navbar" >
-                    <p>
-                        Chose your Product:
-                    </p>
-                    <ul>
-                        <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist" href="#" 
-                        		onclick="bus.setCategory( 'Laptops' );">Laptops</a>
-                        </li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Electronics' );">Electronics</a></li>
-                        <li><a data-theme="c" href="#" onclick="bus.setCategory( 'Others' );">Others</a></li>
-                    </ul>        
                 </div>
             </div><!-- /header -->
             
             <div data-role="content" id="content_detail">
-                <h3>Tipo de producto: <span id="dCategory"></span></h3>
+                <h3>Product type: <span id="dCategory"></span></h3>
                 <hr>
                 <p>
                     <img id="dProBrand" src="images/logo_acer.png" /><br />
                     <strong>MPN:</strong> <span id="dProTitle"></span><br />
-                    <strong>Condición:</strong> <span id="dProStatus"></span><br />
-                    <span class="note">Precio: $</span><span class="note" id="dProPrice"></span>
+                    <strong>condition:</strong> <span id="dProStatus"></span><br />
+                    <span class="note">Price: $</span><span class="note" id="dProPrice"></span>
                 <p>
-                    <strong>Descripción:</strong>
+                    <strong>Description:</strong>
                 <div id="dProDescription"></div>
             </div>
-            
-            <div data-role="footer" data-position="fixed" data-theme="c">
-                <div data-role="navbar">
-                    <ul>
-                        <li>
-                        	<a data-theme="c" class="ui-btn-active ui-state-persist"
-                        		href="#" onclick="bus.setStatus('All')">All</a>
-                        </li>
-                        <li><a href="#" onclick="bus.setStatus('Refurbished')">Refurbished</a></li>
-                        <li><a href="#" onclick="bus.setStatus('New')">New</a></li>
-                    </ul>        
-                </div>        
-            </div><!-- /footer -->
             
         </div>
         <script src="js/update-functions.js" type="text/javascript" charset="utf-8"></script>
